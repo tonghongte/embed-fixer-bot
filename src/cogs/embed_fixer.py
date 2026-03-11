@@ -288,7 +288,13 @@ async def _build_pchome_embed(url: str, session: aiohttp.ClientSession) -> Optio
         if not nick_m or not price_m or not pic_m:
             return None
 
-        nick = BeautifulSoup(nick_m.group(1), "html.parser").get_text()
+        def _decode(s: str) -> str:
+            try:
+                return json.loads(f'"{s}"')
+            except Exception:
+                return s
+
+        nick = BeautifulSoup(_decode(nick_m.group(1)), "html.parser").get_text()
         price = price_m.group(1)
         pic_url = "https://img.pchome.com.tw/cs" + pic_m.group(1).replace("\\\\", "").replace("\\", "")
 
@@ -303,9 +309,9 @@ async def _build_pchome_embed(url: str, session: aiohttp.ClientSession) -> Optio
             brand_m = re.search(r'BrandNames":\[(.*?)\]', text2)
             slogan_m = re.search(r'SloganInfo":\[(.*?)\]', text2)
             if brand_m:
-                brand = brand_m.group(1).replace('","', "_").strip('"')
+                brand = _decode(brand_m.group(1).replace('","', "_").strip('"'))
             if slogan_m:
-                slogan = slogan_m.group(1).replace('","', "\n").strip('"')
+                slogan = _decode(slogan_m.group(1).replace('","', "\n").strip('"'))
         except Exception:
             pass
 
