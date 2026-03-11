@@ -688,12 +688,10 @@ DOMAINS: list[dict] = [
         "emoji": "📋",
         "patterns": [
             r"https?://(www\.)?ptt\.cc/bbs/[A-Za-z0-9_]+/M\.\d+\.A\.[A-Z0-9]+\.html",
-            r"https?://(www\.)?pttweb\.cc/bbs/[A-Za-z0-9_]+/M\.\d+\.A\.[A-Z0-9]+",
         ],
         "fix_methods": {
             "fxptt": [
-                {"old": "ptt.cc",    "new": "fxptt.seria.moe"},
-                {"old": "pttweb.cc", "new": "fxptt.seria.moe"},
+                {"old": "ptt.cc", "new": "fxptt.seria.moe"},
             ],
         },
         "default_method": "fxptt",
