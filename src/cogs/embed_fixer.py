@@ -921,10 +921,7 @@ def _match_domain(url: str) -> Optional[tuple[dict, str]]:
 # ══════════════════════════════════════════════
 
 class FixReplyView(disnake.ui.View):
-    """
-    修復回覆的互動元件：
-      [原始連結]  [🔄 切換模式]  [🗑️ 刪除]
-    """
+    """修復回覆的互動元件：[原始連結]"""
 
     def __init__(
         self,
@@ -948,36 +945,6 @@ class FixReplyView(disnake.ui.View):
                 style=disnake.ButtonStyle.link,
                 row=0,
             ))
-
-    @disnake.ui.button(label="🔄 切換模式", style=disnake.ButtonStyle.secondary, row=0)
-    async def toggle_mode(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
-        """切換 Ermiana / Webhook 模式，限伺服器管理員使用。"""
-        member = interaction.guild.get_member(interaction.user.id)
-        if not member or not member.guild_permissions.manage_guild:
-            await interaction.response.send_message(
-                "需要「管理伺服器」權限才能切換模式。", ephemeral=True
-            )
-            return
-
-        gs = self.cog._gs(self.guild_id)
-        current = gs.get("mode", "ermiana")
-        gs["mode"] = "webhook" if current == "ermiana" else "ermiana"
-        self.cog._save()
-
-        label = "Ermiana（隱藏原始嵌入）" if gs["mode"] == "ermiana" else "Webhook（刪除原訊息並重發）"
-        await interaction.response.send_message(
-            f"已切換至 **{label}** 模式（下次訊息生效）", ephemeral=True
-        )
-
-    @disnake.ui.button(label="🗑️ 刪除", style=disnake.ButtonStyle.danger, row=0)
-    async def delete_reply(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
-        """僅原始訊息作者可刪除此回覆。"""
-        if interaction.user.id != self.author_id:
-            await interaction.response.send_message(
-                "只有原始訊息的發送者可以刪除此回覆。", ephemeral=True
-            )
-            return
-        await interaction.message.delete()
 
     async def on_timeout(self):
         """超時後停用互動按鈕（保留連結按鈕）。"""
