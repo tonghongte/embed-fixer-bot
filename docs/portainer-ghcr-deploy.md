@@ -45,6 +45,9 @@ services:
       # 選填
       # - OWNER_ID=123456789012345678
       # - PREFIX=+
+      # 巴哈姆特（選填，用於顯示需要登入才能瀏覽的場外貼文）
+      # - BAHA_UID=your_bahamut_uid
+      # - BAHA_PASSWD=your_bahamut_password
     volumes:
       - embed_fixer_configs:/app/configs
       - embed_fixer_data:/app/data
@@ -87,3 +90,6 @@ Portainer → **Stacks** → 選擇 stack → **Pull and redeploy**
 
 **Q：機器人無法隱藏原始嵌入**
 → 確認機器人在該頻道有 **Manage Messages** 權限，或改用簡單模式（`/embed_fixer mode`）。
+
+**Q：巴哈姆特場外貼文無法顯示**
+→ 需要填入 `BAHA_UID` 與 `BAHA_PASSWD` 環境變數。未填時，需要登入才能瀏覽的貼文將無法產生嵌入。
