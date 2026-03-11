@@ -1276,6 +1276,10 @@ class EmbedFixerCog(Cog):
                                 avatar_url=str(message.author.display_avatar.url),
                                 wait=True,
                             )
+                            # edit 成 masked link，embed 已快取故保留
+                            masked = f"||[連結]({fixed})||" if is_spoilered else f"[連結]({fixed})"
+                            wh_masked = wh_content.replace(fixed, masked)
+                            await sent.edit(content=wh_masked)
                         view.message = sent
                         if message.channel.id in extract_channels and domain["id"] in ("twitter", "pixiv"):
                             await self._do_media_extract(
