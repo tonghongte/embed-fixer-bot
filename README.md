@@ -12,7 +12,7 @@
 - **兩種模式可切換**：
   - **Ermiana 模式**（預設）：回覆修復連結，並隱藏原始訊息的嵌入預覽
   - **Webhook 模式**：刪除原訊息，以原作者身份透過 Webhook 重發修復後的訊息
-- **互動按鈕**：回覆訊息附有「原始連結」、「切換模式」、「🗑️ 刪除」按鈕
+- **互動按鈕**：回覆訊息附有「原始連結」按鈕（預設隱藏，可透過 `/embed_fixer setting` 開啟）
 - **右鍵指令**：對任意訊息右鍵 → 「🔧 修復嵌入」手動觸發
 - **NSFW 過濾**：Twitter/X 和 Pixiv 的 NSFW 貼文/作品在非 NSFW 頻道不會被修復（可透過 `/embed_fixer setting` 關閉）
 - **媒體擷取**：指定頻道中的 Twitter/Pixiv 連結自動下載並發送完整圖集
@@ -31,22 +31,19 @@
 
 | 平台 | 修復服務 | 說明 |
 |------|---------|------|
-| 🐦 Twitter / X | FxEmbed、BetterTwitFix | 預設 FxEmbed |
+| 🐦 Twitter / X | FxEmbed、BetterTwitFix | 預設 FxEmbed（fxtwitter.com） |
 | 🎨 Pixiv | Phixiv | |
 | 🎵 TikTok | fxTikTok | |
 | 🤖 Reddit | FixReddit、vxReddit | 預設 FixReddit |
 | 📸 Instagram | InstaFix、KKInstagram | 預設 InstaFix |
 | 🦋 Bluesky | VixBluesky、FxEmbed | 預設 VixBluesky |
-| 📺 Bilibili | fxbilibili、BiliFix | 預設 BiliFix；僅影片 |
+| 📺 Bilibili | fxbilibili、BiliFix | 預設 fxbilibili；失敗自動 fallback 至 BiliFix |
 | 🧵 Threads | FixThreads、vxThreads | 預設 FixThreads |
-| 📋 PTT | fxptt | |
+| 📋 PTT | fxptt | 支援 ptt.cc 及 pttweb.cc |
 | 🐾 FurAffinity | xfuraffinity、fxraffinity | 預設 xfuraffinity |
-| 🎮 Twitch Clips | fxtwitch | |
 | 👥 Facebook | facebed | |
 | 📝 Tumblr | fxtumblr | |
 | 🖼️ DeviantArt | fxdeviantart | |
-| 🎬 Iwara | fxiwara | |
-| 📱 Weibo | WeiboEZ | 僅 `m.weibo.cn/detail/` 連結 |
 | 🐉 巴哈姆特電玩資訊站 | 內建爬蟲 | 場外休憩區；設定 `BAHA_UID`/`BAHA_PASSWD` 可讀取需登入的貼文 |
 | 📖 E-Hentai / ExHentai | E-Hentai API | 顯示畫廊標題、分類、評分、標籤 |
 | 🌿 Misskey | Misskey API | 僅 `misskey.io` |
@@ -69,7 +66,7 @@
    - **Presence Intent**
 3. 邀請機器人時需要以下 OAuth2 Scopes 與 Permissions：
    - Scopes：`bot`、`applications.commands`
-   - Bot Permissions：`Send Messages`、`Read Message History`、`Manage Messages`（用於隱藏原始嵌入）、`Use Application Commands`
+   - Bot Permissions：`Send Messages`、`Read Message History`、`Manage Messages`（用於隱藏原始嵌入）、`Manage Webhooks`（Webhook 模式必要）、`Use Application Commands`
 
 ### 2. 設定環境變數
 
@@ -129,7 +126,7 @@ docker compose up -d
 | `/embed_fixer channel` | 將頻道加入或移出**黑名單** |
 | `/embed_fixer whitelist` | 將頻道加入或移出**白名單**（白名單非空時優先於黑名單） |
 | `/embed_fixer role` | 將身份組加入或移出白名單 |
-| `/embed_fixer setting` | 切換各種開關（Bot 可見性、NSFW 過濾、原始連結按鈕、Webhook 回覆標記） |
+| `/embed_fixer setting` | 切換各種開關（Bot 可見性、NSFW 過濾、**原始連結按鈕**（預設關閉）、Webhook 回覆標記） |
 | `/embed_fixer extract` | 設定媒體擷取頻道（Twitter/Pixiv 圖集自動下載發送） |
 | `/translang` | 設定 Twitter/X 翻譯目標語言（僅 FxEmbed；預設繁體中文；需管理伺服器權限） |
 | `/ignore-me` | 選擇退出／重新加入自動嵌入修復（任何人皆可使用） |
