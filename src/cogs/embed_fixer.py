@@ -11,9 +11,9 @@
 
 支援平台：
   Twitter/X · Pixiv · TikTok · Reddit · Instagram · Bluesky
-  Bilibili · Threads · PTT · FurAffinity · Twitch Clips
-  Facebook · Tumblr · DeviantArt · Iwara
-  Weibo · 巴哈姆特 · E-Hentai/ExHentai · Misskey
+  Bilibili · Threads · PTT · FurAffinity
+  Facebook · Tumblr · DeviantArt
+  巴哈姆特 · E-Hentai/ExHentai · Misskey
   PChome 24h · Plurk · Bilibili 動態
 """
 
@@ -714,24 +714,6 @@ DOMAINS: list[dict] = [
         "default_method": "xfuraffinity",
     },
     {
-        "id": "twitch",
-        "name": "Twitch Clips",
-        "emoji": "🎮",
-        "patterns": [
-            r"https?://clips\.twitch\.tv/\w+",
-            r"https?://m\.twitch\.tv/clip/\w+",
-            r"https?://(www\.)?twitch\.tv/\w+/clip/\w+",
-        ],
-        "fix_methods": {
-            "fxtwitch": [
-                {"old": "clips.twitch.tv", "new": "fxtwitch.seria.moe/clip"},
-                {"old": "m.twitch.tv",     "new": "fxtwitch.seria.moe"},
-                {"old": "twitch.tv",       "new": "fxtwitch.seria.moe"},
-            ],
-        },
-        "default_method": "fxtwitch",
-    },
-    {
         "id": "facebook",
         "name": "Facebook",
         "emoji": "👥",
@@ -776,35 +758,7 @@ DOMAINS: list[dict] = [
         },
         "default_method": "fxdeviantart",
     },
-    {
-        "id": "iwara",
-        "name": "Iwara",
-        "emoji": "🎬",
-        "patterns": [
-            r"https?://(www\.)?iwara\.tv/video/\w+/\w+",
-        ],
-        "fix_methods": {
-            "fxiwara": [
-                {"old": "iwara.tv", "new": "fxiwara.seria.moe"},
-            ],
-        },
-        "default_method": "fxiwara",
-    },
     # ── 以下為 API / 爬蟲類平台 ──────────────────
-    {
-        "id": "weibo",
-        "name": "Weibo",
-        "emoji": "📱",
-        "patterns": [
-            r"https?://m\.weibo\.cn/detail/\d+",
-        ],
-        "fix_methods": {
-            "WeiboEZ": [
-                {"old": "m.weibo.cn", "new": "weiboez.com"},
-            ],
-        },
-        "default_method": "WeiboEZ",
-    },
     {
         "id": "bahamut",
         "name": "巴哈姆特電玩資訊站",
