@@ -648,7 +648,8 @@ DOMAINS: list[dict] = [
                 {"old": "b23.tv",       "new": "vxb23.tv"},
             ],
         },
-        "default_method": "BiliFix",
+        "default_method": "fxbilibili",
+        "fallback_method": "BiliFix",
     },
     {
         "id": "threads",
@@ -1195,6 +1196,31 @@ class EmbedFixerCog(Cog):
                 fixed = _apply_fix(url, domain["fix_methods"][method_name])
                 if not fixed:
                     continue
+                # fallback：probe 失敗時改用另一個方法
+                # 若使用預設 → fallback_method；若使用自訂 → 另一個可用方法
+                _all_methods = list(domain.get("fix_methods", {}).keys())
+                fallback_method = None
+                if domain.get("fallback_method"):
+                    if method_name == domain["default_method"]:
+                        fallback_method = domain["fallback_method"]
+                    else:
+                        # 自訂方法 → fallback 到其他方法（優先 default_method）
+                        others = [m for m in _all_methods if m != method_name]
+                        fallback_method = domain["default_method"] if domain["default_method"] in others else (others[0] if others else None)
+                if fallback_method and fallback_method in domain["fix_methods"]:
+                    probe_ok = False
+                    try:
+                        async with self._get_session().head(
+                            fixed, allow_redirects=True,
+                            timeout=aiohttp.ClientTimeout(total=5)
+                        ) as resp:
+                            probe_ok = resp.status < 400
+                    except Exception:
+                        pass
+                    if not probe_ok:
+                        fallback_fixed = _apply_fix(url, domain["fix_methods"][fallback_method])
+                        if fallback_fixed:
+                            fixed = fallback_fixed
                 # 翻譯：Twitter + FxEmbed → 在 URL 後附加語言代碼
                 if domain["id"] == "twitter" and method_name == "FxEmbed" and translate_lang:
                     fixed = fixed.rstrip("/") + f"/{translate_lang}"
