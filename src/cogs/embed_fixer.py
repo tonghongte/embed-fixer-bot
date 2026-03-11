@@ -1179,11 +1179,11 @@ class EmbedFixerCog(Cog):
                 if fallback_method and fallback_method in domain["fix_methods"]:
                     probe_ok = False
                     try:
-                        async with self._get_session().head(
-                            fixed, allow_redirects=True,
+                        async with self._get_session().get(
+                            fixed, allow_redirects=False,
                             timeout=aiohttp.ClientTimeout(total=5)
                         ) as resp:
-                            probe_ok = resp.status < 400
+                            probe_ok = resp.status < 500
                     except Exception:
                         pass
                     if not probe_ok:
