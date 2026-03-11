@@ -1046,7 +1046,8 @@ class EmbedFixerCog(Cog):
             wh = await channel.create_webhook(name="Embed Fixer")
             self._webhooks[channel.id] = wh
             return wh
-        except (disnake.Forbidden, disnake.HTTPException):
+        except (disnake.Forbidden, disnake.HTTPException) as e:
+            self.logger.warning(f"無法建立 Webhook（頻道 {channel.id}），請確認機器人有「管理 Webhook」權限: {e}")
             return None
 
     # ── 媒體擷取輔助 ─────────────────────────────
@@ -1243,6 +1244,8 @@ class EmbedFixerCog(Cog):
                 message.channel, (disnake.TextChannel, disnake.VoiceChannel)
             ):
                 webhook = await self._get_or_create_webhook(message.channel)
+                if not webhook:
+                    self.logger.warning(f"Webhook 模式降級：頻道 {message.channel.id} 無法取得 Webhook，改用 Ermiana 模式")
                 if webhook:
                     try:
                         if fixed_embed is not None:
@@ -1306,7 +1309,7 @@ class EmbedFixerCog(Cog):
 
                 if mode == "ermiana":
                     try:
-                        await message.edit(suppress=True)
+                        await message.edit(suppress_embeds=True)
                     except (disnake.Forbidden, disnake.HTTPException):
                         pass
 
