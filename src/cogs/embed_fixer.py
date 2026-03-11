@@ -688,10 +688,12 @@ DOMAINS: list[dict] = [
         "emoji": "📋",
         "patterns": [
             r"https?://(www\.)?ptt\.cc/bbs/[A-Za-z0-9_]+/M\.\d+\.A\.[A-Z0-9]+\.html",
+            r"https?://(www\.)?pttweb\.cc/bbs/[A-Za-z0-9_]+/M\.\d+\.A\.[A-Z0-9]+",
         ],
         "fix_methods": {
             "fxptt": [
-                {"old": "ptt.cc", "new": "fxptt.seria.moe"},
+                {"old": "ptt.cc",    "new": "fxptt.seria.moe"},
+                {"old": "pttweb.cc", "new": "fxptt.seria.moe"},
             ],
         },
         "default_method": "fxptt",
@@ -736,8 +738,10 @@ DOMAINS: list[dict] = [
         "name": "Facebook",
         "emoji": "👥",
         "patterns": [
-            r"https?://(www\.)?facebook\.com/share/[rv]/\w+",
+            r"https?://(www\.)?facebook\.com/share/[rvp]/\w+",
             r"https?://(www\.)?facebook\.com/reel/\d+",
+            r"https?://(www\.)?facebook\.com/[\w.]+/videos/\d+",
+            r"https?://(www\.)?facebook\.com/watch/?\?v=\d+",
         ],
         "fix_methods": {
             "facebed": [
