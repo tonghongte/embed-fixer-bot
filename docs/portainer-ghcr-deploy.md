@@ -51,7 +51,7 @@ services:
     volumes:
       - embed_fixer_configs:/app/configs
       - embed_fixer_data:/app/data
-      - embed_fixer_log:/app/bot.log
+      - embed_fixer_log:/app/logs
 
 volumes:
   embed_fixer_configs:
@@ -70,7 +70,7 @@ volumes:
 |--------|----------|------|
 | `embed_fixer_configs` | `/app/configs` | 伺服器設定（`guild_settings.json`） |
 | `embed_fixer_data` | `/app/data` | 其他資料 |
-| `embed_fixer_log` | `/app/bot.log` | 日誌檔案 |
+| `embed_fixer_log` | `/app/logs` | 日誌檔案（`bot.log`） |
 
 ---
 

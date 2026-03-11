@@ -27,8 +27,9 @@ def setup_logging():
     stream_handler.setLevel(logging.INFO)
     stream_handler.setFormatter(formatter)
 
+    os.makedirs("logs", exist_ok=True)
     file_handler = logging.FileHandler(
-        filename="bot.log", encoding="utf-8", mode="w"
+        filename="logs/bot.log", encoding="utf-8", mode="w"
     )
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(formatter)
