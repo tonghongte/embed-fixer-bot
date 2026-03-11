@@ -1,0 +1,11 @@
+services:
+  embed-fixer-bot:
+    build: .
+    container_name: embed-fixer-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./configs:/app/configs
+      - ./data:/app/data
+      - ./bot.log:/app/bot.log
