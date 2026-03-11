@@ -37,7 +37,7 @@
 ```yaml
 services:
   embed-fixer-bot:
-    image: ghcr.io/tonghohin/embed-fixer-bot:latest
+    image: ghcr.io/tonghongte/embed-fixer-bot:latest
     container_name: embed-fixer-bot
     restart: unless-stopped
     environment:
