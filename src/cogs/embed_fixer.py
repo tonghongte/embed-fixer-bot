@@ -1453,6 +1453,7 @@ class EmbedFixerCog(Cog):
     # ── 斜線指令：/embed_fixer ───────────────────
 
     @commands.slash_command(name="embed_fixer", description="嵌入修復器設定")
+    @commands.default_member_permissions(manage_guild=True)
     async def embed_fixer(self, inter: ApplicationCommandInteraction):
         pass
 
@@ -1598,7 +1599,6 @@ class EmbedFixerCog(Cog):
     # ── /embed_fixer channel ─────────────────────
 
     @embed_fixer.sub_command(name="channel", description="將頻道加入或移出黑名單（黑名單中的頻道不進行嵌入修復）")
-    @commands.default_member_permissions(manage_guild=True)
     async def ef_channel(
         self,
         inter: ApplicationCommandInteraction,
@@ -1622,7 +1622,6 @@ class EmbedFixerCog(Cog):
     # ── /embed_fixer whitelist ───────────────────
 
     @embed_fixer.sub_command(name="whitelist", description="設定頻道白名單（只有白名單頻道才進行嵌入修復；非空時優先於黑名單）")
-    @commands.default_member_permissions(manage_guild=True)
     async def ef_whitelist(
         self,
         inter: ApplicationCommandInteraction,
@@ -1646,7 +1645,6 @@ class EmbedFixerCog(Cog):
     # ── /embed_fixer role ────────────────────────
 
     @embed_fixer.sub_command(name="role", description="設定身份組白名單（只有擁有這些身份組的使用者才被修復；空＝全部）")
-    @commands.default_member_permissions(manage_guild=True)
     async def ef_role(
         self,
         inter: ApplicationCommandInteraction,
@@ -1672,7 +1670,6 @@ class EmbedFixerCog(Cog):
     # ── /embed_fixer setting ─────────────────────
 
     @embed_fixer.sub_command(name="setting", description="切換各種開關設定")
-    @commands.default_member_permissions(manage_guild=True)
     async def ef_setting(
         self,
         inter: ApplicationCommandInteraction,
@@ -1705,7 +1702,6 @@ class EmbedFixerCog(Cog):
     # ── /embed_fixer extract ─────────────────────
 
     @embed_fixer.sub_command(name="extract", description="設定媒體擷取頻道（Twitter/Pixiv 連結自動發送完整圖集）")
-    @commands.default_member_permissions(manage_guild=True)
     async def ef_extract(
         self,
         inter: ApplicationCommandInteraction,
