@@ -71,7 +71,7 @@ def _guild_settings(data: dict, guild_id: int) -> dict:
             "whitelist_roles": [],    # 只修復擁有這些身份組的使用者（空＝全部）
             "fix_bots": False,        # 是否修復機器人發送的連結
             "nsfw_filter": True,      # 是否在非 NSFW 頻道過濾 NSFW 貼文
-            "show_original_link": True,  # 是否顯示「原始連結」按鈕
+            "show_original_link": False,  # 是否顯示「原始連結」按鈕
             "webhook_reply": True,    # 回覆 Webhook 訊息時是否標記原始作者
             "extract_channels": [],   # 媒體擷取頻道列表（Twitter/Pixiv）
             "translate_lang": "zh-TW", # Twitter 翻譯語言（僅 FxEmbed）
@@ -536,7 +536,7 @@ DOMAINS: list[dict] = [
         "fix_methods": {
             "FxEmbed": [
                 {"old": "twitter.com", "new": "fxtwitter.com"},
-                {"old": "x.com",       "new": "fixupx.com"},
+                {"old": "x.com",       "new": "fxtwitter.com"},
             ],
             "BetterTwitFix": [
                 {"old": "twitter.com", "new": "vxtwitter.com"},
@@ -1287,6 +1287,9 @@ class EmbedFixerCog(Cog):
                         view=view,
                         allowed_mentions=disnake.AllowedMentions(replied_user=False),
                     )
+                    # 先送裸 URL 讓 Discord 快取 embed，再 edit 成 masked link 隱藏 URL
+                    masked = f"||[連結]({fixed})||" if is_spoilered else f"[連結]({fixed})"
+                    await reply.edit(content=masked)
                 view.message = reply
 
                 if mode == "ermiana":
