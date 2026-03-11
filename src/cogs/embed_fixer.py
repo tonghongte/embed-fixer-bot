@@ -309,9 +309,15 @@ async def _build_pchome_embed(url: str, session: aiohttp.ClientSession) -> Optio
             brand_m = re.search(r'BrandNames":\[(.*?)\]', text2)
             slogan_m = re.search(r'SloganInfo":\[(.*?)\]', text2)
             if brand_m:
-                brand = _decode(brand_m.group(1).replace('","', "_").strip('"'))
+                try:
+                    brand = "_".join(json.loads(f"[{brand_m.group(1)}]"))
+                except Exception:
+                    brand = _decode(brand_m.group(1).replace('","', "_").strip('"'))
             if slogan_m:
-                slogan = _decode(slogan_m.group(1).replace('","', "\n").strip('"'))
+                try:
+                    slogan = "\n".join(json.loads(f"[{slogan_m.group(1)}]"))
+                except Exception:
+                    slogan = _decode(slogan_m.group(1).replace('","', "\n").strip('"'))
         except Exception:
             pass
 
