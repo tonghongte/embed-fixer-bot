@@ -23,7 +23,7 @@
    - **Server Members Intent**
    - **Presence Intent**
 4. 左側選 **OAuth2** → **URL Generator**，Scopes 勾選 `bot`、`applications.commands`
-5. Bot Permissions 勾選：`Send Messages`、`Read Message History`、`Manage Messages`、`Use Application Commands`
+5. Bot Permissions 勾選：`Send Messages`、`Read Message History`、`Manage Messages`、`Manage Webhooks`、`Use Application Commands`
 6. 複製產生的連結，用瀏覽器開啟，將機器人邀請至伺服器
 
 ---
@@ -93,3 +93,6 @@ Portainer → **Stacks** → 選擇 stack → **Pull and redeploy**
 
 **Q：巴哈姆特場外貼文無法顯示**
 → 需要填入 `BAHA_UID` 與 `BAHA_PASSWD` 環境變數。未填時，需要登入才能瀏覽的貼文將無法產生嵌入。
+
+**Q：Webhook 模式無效，仍以 Reply 方式回覆**
+→ 機器人缺少 **Manage Webhooks** 權限。請至伺服器設定 → 身份組 → 找到機器人身份組，開啟「管理 Webhook」權限。
