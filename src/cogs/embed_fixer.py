@@ -718,7 +718,7 @@ DOMAINS: list[dict] = [
         "name": "Facebook",
         "emoji": "👥",
         "patterns": [
-            r"https?://(www\.)?facebook\.com/share/[rvp]/\w+",
+            r"https?://(www\.)?facebook\.com/share/([rvp]/)?[\w]+",
             r"https?://(www\.)?facebook\.com/reel/\d+",
             r"https?://(www\.)?facebook\.com/[\w.]+/videos/\d+",
             r"https?://(www\.)?facebook\.com/watch/?\?v=\d+",

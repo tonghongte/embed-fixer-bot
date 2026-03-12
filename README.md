@@ -41,7 +41,7 @@
 | 🧵 Threads | FixThreads、vxThreads | 預設 FixThreads |
 | 📋 PTT | fxptt | 支援 ptt.cc 及 pttweb.cc |
 | 🐾 FurAffinity | xfuraffinity、fxraffinity | 預設 xfuraffinity |
-| 👥 Facebook | facebed | |
+| 👥 Facebook | facebed | 使用 [facebed](https://github.com/tonghongte/facebed)；支援含外部連結卡片的貼文圖片擷取 |
 | 📝 Tumblr | fxtumblr | |
 | 🖼️ DeviantArt | fxdeviantart | |
 | 🐉 巴哈姆特電玩資訊站 | 內建爬蟲 | 場外休憩區；設定 `BAHA_UID`/`BAHA_PASSWD` 可讀取需登入的貼文 |

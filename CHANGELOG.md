@@ -2,9 +2,13 @@
 
 ## [Unreleased]
 
+## [2026-03-12]
+
 ### 新增
 - **Bilibili fallback**：Bilibili 影片連結預設使用 fxbilibili，若回應失敗（5xx 或連線錯誤）自動切換至 BiliFix（vxbilibili）
 - **PTT pttweb.cc 支援**：pttweb.cc 連結在轉換時自動補上 `.html` 後綴，確保 fxptt 可正確解析
+- **Spoiler masked link**：Spoiler（`||url||`）格式的連結修復後以 `||[連結](url)||` 方式呈現，維持隱藏效果
+- **Facebook 連結卡片圖片**（自架 facebed）：facebed 新增對貼文內嵌文章連結卡片（link card）圖片的擷取，修復含外部文章預覽的 Facebook 貼文無法顯示圖片的問題
 
 ### 變更
 - **連結顯示格式**：Ermiana 模式與 Webhook 模式的回覆連結改以 `[連結](url)` masked link 格式呈現，版面更簡潔
