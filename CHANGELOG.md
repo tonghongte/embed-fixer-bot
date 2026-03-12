@@ -1,13 +1,5 @@
 # Changelog
 
-## [Unreleased]
-
-### 新增
-- **Facebook 雙修復服務**：新增 `facebed`（自架，預設）與 `facebed.com`（公共）兩個方法，可透過 `/embed_fixer method` 切換
-
-### 變更
-- **Facebook 預設服務**：由 `facebed.com` 改為自架實例 `drhong.ddns.net:9812`
-
 ## [2026-03-12]
 
 ### 新增
@@ -15,8 +7,10 @@
 - **PTT pttweb.cc 支援**：pttweb.cc 連結在轉換時自動補上 `.html` 後綴，確保 fxptt 可正確解析
 - **Spoiler masked link**：Spoiler（`||url||`）格式的連結修復後以 `||[連結](url)||` 方式呈現，維持隱藏效果
 - **Facebook 連結卡片圖片**（自架 facebed）：facebed 新增對貼文內嵌文章連結卡片（link card）圖片的擷取，修復含外部文章預覽的 Facebook 貼文無法顯示圖片的問題
+- **Facebook 雙修復服務**：新增 `facebed`（自架，預設）與 `facebed.com`（公共）兩個方法，可透過 `/embed_fixer method` 切換
 
 ### 變更
+- **Facebook 預設服務**：由 `facebed.com` 改為自架實例（`drhong.ddns.net:9812`）
 - **連結顯示格式**：Ermiana 模式與 Webhook 模式的回覆連結改以 `[連結](url)` masked link 格式呈現，版面更簡潔
 - **UI 簡化**：移除「切換模式」與「🗑️ 刪除」互動按鈕
 - **原始連結按鈕預設關閉**：`show_original_link` 預設為 `False`，可透過 `/embed_fixer setting` 開啟
