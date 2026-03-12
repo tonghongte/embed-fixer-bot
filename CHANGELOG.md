@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### 新增
+- **Facebook 雙修復服務**：新增 `facebed`（自架，預設）與 `facebed.com`（公共）兩個方法，可透過 `/embed_fixer method` 切換
+
+### 變更
+- **Facebook 預設服務**：由 `facebed.com` 改為自架實例 `drhong.ddns.net:9812`
+
 ## [2026-03-12]
 
 ### 新增

@@ -725,6 +725,9 @@ DOMAINS: list[dict] = [
         ],
         "fix_methods": {
             "facebed": [
+                {"old": "facebook.com", "new": "drhong.ddns.net:9812", "scheme": "http"},
+            ],
+            "facebed.com": [
                 {"old": "facebook.com", "new": "facebed.com"},
             ],
         },
@@ -857,17 +860,17 @@ def _strip_query(url: str) -> str:
     return urlunparse((p.scheme, p.netloc, p.path, p.params, "", p.fragment))
 
 
-def _replace_domain(url: str, old: str, new: str) -> str:
+def _replace_domain(url: str, old: str, new: str, scheme: str = None) -> str:
     p = urlparse(url)
     if p.netloc == old or p.netloc.endswith(f".{old}"):
-        return urlunparse(p._replace(netloc=new))
+        return urlunparse(p._replace(netloc=new, scheme=scheme or p.scheme))
     return url
 
 
 def _apply_fix(url: str, rules: list[dict]) -> Optional[str]:
     """依序套用規則，回傳首個成功修復的 URL；無匹配則回傳 None。"""
     for rule in rules:
-        fixed = _replace_domain(url, rule["old"], rule["new"])
+        fixed = _replace_domain(url, rule["old"], rule["new"], rule.get("scheme"))
         if fixed != url:
             return fixed
     return None
