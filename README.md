@@ -38,7 +38,7 @@
 | 📸 Instagram | InstaFix、KKInstagram | 預設 InstaFix |
 | 🦋 Bluesky | VixBluesky、FxEmbed | 預設 VixBluesky |
 | 📺 Bilibili | fxbilibili、BiliFix | 預設 fxbilibili；失敗自動 fallback 至 BiliFix |
-| 🧵 Threads | FixThreads、vxThreads | 預設 FixThreads |
+| 🧵 Threads | FixThreads（自架）、vxThreads | 預設 FixThreads；使用自架實例（`drhong.ddns.net:9813`） |
 | 📋 PTT | fxptt | 支援 ptt.cc 及 pttweb.cc |
 | 🐾 FurAffinity | xfuraffinity、fxraffinity | 預設 xfuraffinity |
 | 👥 Facebook | facebed（自架）、facebed.com | 使用 [facebed](https://github.com/tonghongte/facebed)；預設自架實例；支援含外部連結卡片的貼文圖片擷取 |
