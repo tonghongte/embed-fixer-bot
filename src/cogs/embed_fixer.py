@@ -672,8 +672,8 @@ DOMAINS: list[dict] = [
         ],
         "fix_methods": {
             "FixThreads": [
-                {"old": "threads.net", "new": "fixthreads.seria.moe"},
-                {"old": "threads.com", "new": "fixthreads.seria.moe"},
+                {"old": "threads.net", "new": "drhong.ddns.net:9813", "scheme": "http"},
+                {"old": "threads.com", "new": "drhong.ddns.net:9813", "scheme": "http"},
             ],
             "vxThreads": [
                 {"old": "threads.net", "new": "vxthreads.net"},
