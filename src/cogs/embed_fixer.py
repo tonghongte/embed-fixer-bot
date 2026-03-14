@@ -1166,7 +1166,7 @@ class EmbedFixerCog(Cog):
                 method_name = custom_methods.get(domain["id"], domain["default_method"])
                 if method_name not in domain["fix_methods"]:
                     method_name = domain["default_method"]
-                fixed = _apply_fix(url, domain["fix_methods"][method_name])
+                fixed = _apply_fix(match_url, domain["fix_methods"][method_name])
                 if not fixed:
                     continue
                 # fallback：probe 失敗時改用另一個方法
@@ -1191,7 +1191,7 @@ class EmbedFixerCog(Cog):
                     except Exception:
                         pass
                     if not probe_ok:
-                        fallback_fixed = _apply_fix(url, domain["fix_methods"][fallback_method])
+                        fallback_fixed = _apply_fix(match_url, domain["fix_methods"][fallback_method])
                         if fallback_fixed:
                             fixed = fallback_fixed
                 # 翻譯：Twitter + FxEmbed → 在 URL 後附加語言代碼
