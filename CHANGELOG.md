@@ -3,7 +3,7 @@
 ## [2026-03-14]
 
 ### 新增
-- **Facebook 貼文 URL 支援擴充**：新增 `facebook.com/{uid}/posts/{id}` 格式的 URL 匹配，涵蓋更多貼文類型
+- **Facebook 貼文 URL 支援擴充**：新增 `facebook.com/{uid}/posts/{id}` 及 `facebook.com/groups/{group}/permalink/{id}` 格式的 URL 匹配，涵蓋更多貼文與社團貼文類型
 
 ### 變更
 - **Threads 預設服務改為自架實例**：FixThreads 方法由 `fixthreads.seria.moe` 改為自架實例（`drhong.ddns.net:9813`，http）

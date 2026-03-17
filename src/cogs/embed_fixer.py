@@ -723,6 +723,7 @@ DOMAINS: list[dict] = [
             r"https?://(www\.)?facebook\.com/[\w.]+/videos/\d+",
             r"https?://(www\.)?facebook\.com/watch/?\?v=\d+",
             r"https?://(www\.)?facebook\.com/\d+/posts/\d+",
+            r"https?://(www\.)?facebook\.com/groups/[\w.]+/permalink/\d+",
         ],
         "fix_methods": {
             "facebed": [
