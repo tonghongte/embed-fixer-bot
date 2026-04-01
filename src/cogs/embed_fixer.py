@@ -1426,6 +1426,59 @@ class EmbedFixerCog(Cog):
                 content="❌ 此訊息中未找到可修復的社交媒體連結。"
             )
 
+    @commands.message_command(name="🔄 重新修復")
+    async def ctx_refix_embed(self, interaction: MessageCommandInteraction):
+        """對機器人已修復的訊息重新觸發修復（刪除舊回覆後重新發送）。"""
+        await interaction.response.defer(ephemeral=True)
+        target = interaction.target
+
+        # 確認點選的是本機器人的訊息
+        if target.author.id != self.bot.user.id:
+            await interaction.edit_original_response(content="❌ 請對本機器人發送的修復訊息使用此指令。")
+            return
+
+        # 取得原始訊息（被回覆的那則）
+        ref = target.reference
+        if ref is None or ref.message_id is None:
+            await interaction.edit_original_response(content="❌ 找不到原始訊息的參照。")
+            return
+
+        try:
+            original = await target.channel.fetch_message(ref.message_id)
+        except (disnake.NotFound, disnake.HTTPException):
+            await interaction.edit_original_response(content="❌ 原始訊息已被刪除，無法重新修復。")
+            return
+
+        # 刪除舊的修復訊息
+        try:
+            await target.delete()
+        except (disnake.Forbidden, disnake.HTTPException):
+            pass
+
+        success = await self._fix_message(original, force=True)
+        if success:
+            await interaction.edit_original_response(content="✅ 重新修復完成！")
+        else:
+            await interaction.edit_original_response(content="❌ 原始訊息中未找到可修復的社交媒體連結。")
+
+    @commands.message_command(name="🗑️ 移除修復")
+    async def ctx_remove_fix(self, interaction: MessageCommandInteraction):
+        """刪除機器人發送的修復訊息。"""
+        await interaction.response.defer(ephemeral=True)
+        target = interaction.target
+
+        if target.author.id != self.bot.user.id:
+            await interaction.edit_original_response(content="❌ 請對本機器人發送的修復訊息使用此指令。")
+            return
+
+        try:
+            await target.delete()
+            await interaction.edit_original_response(content="✅ 已移除修復訊息。")
+        except disnake.Forbidden:
+            await interaction.edit_original_response(content="❌ 缺少刪除訊息的權限。")
+        except disnake.HTTPException as e:
+            await interaction.edit_original_response(content=f"❌ 刪除失敗：{e}")
+
     # ── 斜線指令：/embed_fixer ───────────────────
 
     @commands.slash_command(name="embed_fixer", description="嵌入修復器設定")
