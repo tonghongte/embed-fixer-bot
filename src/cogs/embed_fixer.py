@@ -1461,23 +1461,6 @@ class EmbedFixerCog(Cog):
         else:
             await interaction.edit_original_response(content="❌ 原始訊息中未找到可修復的社交媒體連結。")
 
-    @commands.message_command(name="🗑️ 移除修復")
-    async def ctx_remove_fix(self, interaction: MessageCommandInteraction):
-        """刪除機器人發送的修復訊息。"""
-        await interaction.response.defer(ephemeral=True)
-        target = interaction.target
-
-        if target.author.id != self.bot.user.id:
-            await interaction.edit_original_response(content="❌ 請對本機器人發送的修復訊息使用此指令。")
-            return
-
-        try:
-            await target.delete()
-        except (disnake.Forbidden, disnake.HTTPException):
-            pass
-
-        await interaction.edit_original_response(content="✅ 已移除修復訊息。")
-
     # ── 斜線指令：/embed_fixer ───────────────────
 
     @commands.slash_command(name="embed_fixer", description="嵌入修復器設定")
