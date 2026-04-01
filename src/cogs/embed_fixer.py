@@ -1464,30 +1464,19 @@ class EmbedFixerCog(Cog):
     @commands.message_command(name="🗑️ 移除修復")
     async def ctx_remove_fix(self, interaction: MessageCommandInteraction):
         """刪除機器人發送的修復訊息。"""
-        self.logger.info(f"[ctx_remove_fix] triggered by {interaction.author.id} on msg {interaction.target.id} author {interaction.target.author.id}")
-        try:
-            await interaction.response.defer(ephemeral=True)
-        except Exception as e:
-            self.logger.error(f"[ctx_remove_fix] defer failed: {e}")
-            return
+        await interaction.response.defer(ephemeral=True)
         target = interaction.target
-        try:
-            if target.author.id != self.bot.user.id:
-                await interaction.edit_original_response(content="❌ 請對本機器人發送的修復訊息使用此指令。")
-                return
 
+        if target.author.id != self.bot.user.id:
+            await interaction.edit_original_response(content="❌ 請對本機器人發送的修復訊息使用此指令。")
+            return
+
+        try:
             await target.delete()
-            await interaction.edit_original_response(content="✅ 已移除修復訊息。")
-        except disnake.Forbidden:
-            await interaction.edit_original_response(content="❌ 缺少刪除訊息的權限。")
-        except disnake.HTTPException as e:
-            await interaction.edit_original_response(content=f"❌ 刪除失敗：{e}")
-        except Exception as e:
-            self.logger.warning(f"[ctx_remove_fix] 發生例外: {e}")
-            try:
-                await interaction.edit_original_response(content=f"❌ 發生錯誤：{e}")
-            except Exception:
-                pass
+        except (disnake.Forbidden, disnake.HTTPException):
+            pass
+
+        await interaction.edit_original_response(content="✅ 已移除修復訊息。")
 
     # ── 斜線指令：/embed_fixer ───────────────────
 
