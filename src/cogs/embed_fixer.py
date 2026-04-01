@@ -1466,18 +1466,20 @@ class EmbedFixerCog(Cog):
         """刪除機器人發送的修復訊息。"""
         await interaction.response.defer(ephemeral=True)
         target = interaction.target
-
-        if target.author.id != self.bot.user.id:
-            await interaction.edit_original_response(content="❌ 請對本機器人發送的修復訊息使用此指令。")
-            return
-
         try:
+            if target.author.id != self.bot.user.id:
+                await interaction.edit_original_response(content="❌ 請對本機器人發送的修復訊息使用此指令。")
+                return
+
             await target.delete()
             await interaction.edit_original_response(content="✅ 已移除修復訊息。")
         except disnake.Forbidden:
             await interaction.edit_original_response(content="❌ 缺少刪除訊息的權限。")
         except disnake.HTTPException as e:
             await interaction.edit_original_response(content=f"❌ 刪除失敗：{e}")
+        except Exception as e:
+            self.logger.warning(f"ctx_remove_fix 發生例外: {e}")
+            await interaction.edit_original_response(content=f"❌ 發生錯誤：{e}")
 
     # ── 斜線指令：/embed_fixer ───────────────────
 
