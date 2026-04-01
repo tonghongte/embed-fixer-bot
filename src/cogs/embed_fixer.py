@@ -1464,7 +1464,12 @@ class EmbedFixerCog(Cog):
     @commands.message_command(name="🗑️ 移除修復")
     async def ctx_remove_fix(self, interaction: MessageCommandInteraction):
         """刪除機器人發送的修復訊息。"""
-        await interaction.response.defer(ephemeral=True)
+        self.logger.info(f"[ctx_remove_fix] triggered by {interaction.author.id} on msg {interaction.target.id} author {interaction.target.author.id}")
+        try:
+            await interaction.response.defer(ephemeral=True)
+        except Exception as e:
+            self.logger.error(f"[ctx_remove_fix] defer failed: {e}")
+            return
         target = interaction.target
         try:
             if target.author.id != self.bot.user.id:
@@ -1478,8 +1483,11 @@ class EmbedFixerCog(Cog):
         except disnake.HTTPException as e:
             await interaction.edit_original_response(content=f"❌ 刪除失敗：{e}")
         except Exception as e:
-            self.logger.warning(f"ctx_remove_fix 發生例外: {e}")
-            await interaction.edit_original_response(content=f"❌ 發生錯誤：{e}")
+            self.logger.warning(f"[ctx_remove_fix] 發生例外: {e}")
+            try:
+                await interaction.edit_original_response(content=f"❌ 發生錯誤：{e}")
+            except Exception:
+                pass
 
     # ── 斜線指令：/embed_fixer ───────────────────
 
